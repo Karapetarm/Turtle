@@ -1,6 +1,5 @@
 package Turtle;
 
-
 import java.util.Scanner;
 
 public class TurtleController {
@@ -13,20 +12,19 @@ public class TurtleController {
 
         Scanner scanner = new Scanner(System.in);
         String str;
-        System.out.println("Input command");
+        System.out.println("Input command 1, 2, 3, 4, 5, 6, 7, 8 or exit");
         do {
-//            System.out.println(
-//                    "Input \n" +
-//                            "1  for penUp\n" +
-//                            "2  for penDown\n" +
-//                            "3  for turnRight\n" +
-//                            "4  for turnLeft\n" +
-//                            "5  for move\n" +
-//                            "6  for display\n" +
-//                            "7  for erasePath\n" +
-//                            "8  for goToStartPoint\n" +
-//                            "exit   for End"
-//            );
+            System.out.println(
+                            "1  for penUp\n" +
+                            "2  for penDown\n" +
+                            "3  for turnRight\n" +
+                            "4  for turnLeft\n" +
+                            "5  for move\n" +
+                            "6  for display\n" +
+                            "7  for erasePath\n" +
+                            "8  for goToStartPoint\n" +
+                            "exit   for End"
+            );
             str = scanner.next();
             switch (str){
                 case "1": turtle1.penUp();break;

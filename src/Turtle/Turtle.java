@@ -67,8 +67,8 @@ public class Turtle {
         for(int i=19;i>=0;i--){
             for(int j=0;j<20;j++)
                 if(array[i][j])
-                    System.out.print("*");
-                else System.out.print(".");
+                    System.out.print(" * ");
+                else System.out.print(" - ");
             System.out.println();}
 
     }
