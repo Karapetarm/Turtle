@@ -1,91 +1,86 @@
 package Turtle;
 
-public class Turtle {
-    private boolean penDown;
-    private int roomLength;
-    private int roomWidth;
-    private boolean [][] array;
+public class Turtle implements Game {
+    private Pen pen;
+    private Board board;
     private Direction direction;
-    private int turtleX =0;
-    private int turtleY =0;
 
-    Turtle(){
-        roomLength=20;
-        roomWidth=20;
-        setDirection(Direction.N);
-        createArray(roomWidth,roomLength);
+    public Turtle(){
+      this(20,20,Direction.N);
     }
 
-    Turtle(int roomWidth,int roomLength,Direction direction){
-        this.roomLength=roomLength;
-        this.roomWidth=roomWidth;
+    public Turtle(int roomWidth,int roomLength,Direction direction){
+        board =new Board(roomLength,roomWidth);
+        pen= new Pen(false);
         setDirection(direction);
-        createArray(roomWidth,roomLength);
     }
     // 1
+    @Override
     public void penUp(){
-        penDown=false;
+        pen.setPenDown(false);
     }
     // 2
+    @Override
     public void penDown(){
-        penDown=true;
-        array[turtleY][turtleX]=true;
+        pen.setPenDown(true);
+        board.setPoint(true);
     }
     // 3
+    @Override
     public void turnRight(){
         direction=direction.nextDirection;
     }
     //4
+    @Override
     public void turnLeft(){
         direction=direction.previousDirection;
     }
     //5
+    @Override
     public void move(int steps){
         int i=0;
         while (i++<steps&&oneStep()){
-            if(!array[turtleY][turtleX])
-                array[turtleY][turtleX]=penDown;
+            if(!board.getPoint())
+                board.setPoint(pen.isPenDown());
         }
     }
 
     private boolean oneStep(){
-        int newX= turtleX +direction.getX();
-        int newY= turtleY +direction.getY();
-        if(-1<newX&&newX<roomLength&&-1<newY&&newY<roomWidth){
-            turtleX =newX;
-            turtleY =newY;
+        int newX= board.getBoardX() +direction.getI();
+        int newY= board.getBoardY() +direction.getJ();
+        if(-1<newX&&newX< board.getBoardLength()&&-1<newY&&newY< board.getBoardWidth()){
+            board.setBoardX(newX);
+            board.setBoardY(newY);
             return true;
         }
         else{
             System.out.println("Impossible Movement");
             return false;
         }
-
     }
     //6
+    @Override
     public void display(){
         for(int i=19;i>=0;i--){
             for(int j=0;j<20;j++)
-                if(array[i][j])
+                if(board.getBoard()[i][j])
                     System.out.print(" * ");
                 else System.out.print(" - ");
             System.out.println();}
 
     }
     //7
+    @Override
     public void erasePath(){
         for(int i=0;i<20;i++)
             for(int j=0;j<20;j++)
-                array[i][j]=false;
+                board.getBoard()[i][j]=false;
     }
     //8
+    @Override
     public void goToStartPoint(){
-        turtleX=0;
-        turtleY=0;
-    }
-
-    private void createArray(int roomWidth,int roomLength) {
-        array =new boolean[roomWidth][roomLength];
+        board.setBoardX(0);
+        board.setBoardY(0);
     }
 
     private void setDirection(Direction direction) {
@@ -93,47 +88,5 @@ public class Turtle {
             for(Direction dir:Direction.values())
                 dir.setNextAndPreviousDirections();
         this.direction=direction;
-    }
-
-    enum Direction {N(0,1),E(1,0),S(0,-1),W(-1,0);
-        private int x;
-        private int y;
-        public Direction nextDirection;
-        public Direction previousDirection;
-
-        Direction(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        private void setNextAndPreviousDirections() {
-            if (x == 0){
-                if (y == 1) {
-                    nextDirection = E;
-                    previousDirection = W;
-                } else {
-                    nextDirection = W;
-                    previousDirection = E;
-                }
-            }
-            else{
-                if (x == 1) {
-                    nextDirection = S;
-                    previousDirection = N;
-                }
-                else {
-                    nextDirection = N;
-                    previousDirection = S;
-                }
-            }
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
     }
 }

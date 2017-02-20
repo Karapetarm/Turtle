@@ -1,14 +1,15 @@
-package Turtle;
+import Turtle.Turtle;
+import Turtle.Game;
 
 import java.util.Scanner;
 
 public class TurtleController {
     public static void main(String args[]){
 
-        Turtle turtle2=new Turtle();
+        Game turtle2=new Turtle();
 
-        Turtle.Direction direction= Turtle.Direction.E;
-        Turtle turtle1=new Turtle(30,30,direction);
+
+        Game turtle1=new Turtle();
 
         Scanner scanner = new Scanner(System.in);
         String str;
